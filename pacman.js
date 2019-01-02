@@ -37,6 +37,7 @@ const clyde = {
   edible: false
 };
 
+const ghosts = ['inky', 'blinky', 'pinky', 'clyde'];
 
 // Draw the screen functionality
 function drawScreen() {
