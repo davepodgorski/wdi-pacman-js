@@ -80,10 +80,16 @@ function eatDot() {
 }
 
 function eatGhost(ghost) {
-  // if(ghost.edible === false) {
-  // lives --;
- console.log(`\nKilled by ${ghost.name}, a ${ghost.colour} coloured ghost. `);
+  if(ghost.edible === false) {
+  lives --;
+} console.log(`\nKilled by ${ghost.name}, a ${ghost.colour} coloured ghost. `);
+  if (lives < 0) {
+    console.log(`Game Over! Please Insert Coin(s) to Continue.`)
+    process.exit();
+}
 };
+
+
 
 
 // Process Player's Input
