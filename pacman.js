@@ -37,7 +37,7 @@ const clyde = {
   edible: false
 };
 
-const ghosts = ['inky', 'blinky', 'pinky', 'clyde'];
+let ghosts = [inky, blinky, pinky, clyde];
 
 // Draw the screen functionality
 function drawScreen() {
@@ -79,6 +79,12 @@ function eatDot() {
   score += 10;
 }
 
+function eatGhost(ghost) {
+  // if(ghost.edible === false) {
+  // lives --;
+ console.log(`\nKilled by ${ghost.name}, a ${ghost.colour} coloured ghost. `);
+};
+
 
 // Process Player's Input
 function processInput(key) {
@@ -89,6 +95,18 @@ function processInput(key) {
       break;
     case 'd':
       eatDot();
+      break;
+      case '1':
+      eatGhost(inky);
+      break;
+      case '2':
+      eatGhost(blinky);
+      break;
+      case '3':
+      eatGhost(pinky);
+      break;
+      case '4':
+      eatGhost(clyde);
       break;
     default:
       console.log('\nInvalid Command!');
@@ -113,7 +131,7 @@ drawScreen();
 stdin.on('data', (key) => {
   process.stdout.write(key);
   processInput(key);
-  setTimeout(drawScreen, 100); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
+  setTimeout(drawScreen, 500); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
 });
 
 // Player Quits
