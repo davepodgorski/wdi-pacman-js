@@ -1,6 +1,7 @@
 // Setup initial game stats
 let score = 0;
 let lives = 2;
+let powerPills = 4;
 
 
 // Define your ghosts here
@@ -55,15 +56,20 @@ function clearScreen() {
 
 function displayStats() {
   console.log(`Score: ${score}     Lives: ${lives}`);
+
+console.log(`Power-Pills: ${powerPills}`);
 }
 
+
+
 function displayMenu() {
-  console.log('\n\nSelect Option:\n');  // each \n creates a new line
+  console.log('\n\nSelect Option:\n');
   console.log('(d) Eat Dot');
-  console.log('(1) Eat Inky');
-  console.log('(2) Eat Blinky');
-  console.log('(3) Eat Pinky');
-  console.log('(4) Eat Clyde');
+  console.log(`(1) Eat Inky ${inky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(2) Eat Blinky ${inky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(3) Eat Pinky ${inky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(4) Eat Clyde ${inky.edible ? '(edible)' : '(inedible)'}`);
+  if (powerPills > 0 ) {console.log('(p) Pop Power Pill');} else {} // each \n creates a new line
   console.log('(q) Quit');
 }
 
@@ -82,13 +88,29 @@ function eatDot() {
 function eatGhost(ghost) {
   if(ghost.edible === false) {
   lives --;
-} console.log(`\nKilled by ${ghost.name}, a ${ghost.colour} coloured ghost. `);
-  if (lives < 0) {
+ console.log(`\nKilled by ${ghost.name}, a ${ghost.colour} coloured ghost. `);
+} else {
+      score += 200;
+    } console.log(`\nYou ate ${ghost.name}, a ${ghost.character} ghost.`);
+    for (i in ghosts) {
+      ghost.edible = false;
+    }
+
+if (lives < 0) {
     console.log(`Game Over! Please Insert Coin(s) to Continue.`)
     process.exit();
+  }
 }
-};
 
+
+function popPowerPill() {
+  console.log('\nPewPewPew!');
+  score += 50
+  powerPills -= 1;
+  for (i in ghosts) {
+  ghosts[i].edible = true;
+}
+}
 
 
 
@@ -101,7 +123,7 @@ function processInput(key) {
       break;
     case 'd':
       eatDot();
-      break;
+
       case '1':
       eatGhost(inky);
       break;
@@ -113,6 +135,13 @@ function processInput(key) {
       break;
       case '4':
       eatGhost(clyde);
+      break;
+      case 'p':
+      if (powerPills > 0) {
+      popPowerPill();
+    } else {
+      console.log('\nNo Power Pills Left!');
+    }
       break;
     default:
       console.log('\nInvalid Command!');
